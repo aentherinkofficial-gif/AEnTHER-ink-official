@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Panel | AetherInk Studio</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>✒️</text></svg>">
+</head>
+<body class="admin-body">
+
+  <!-- Login Screen -->
+  <div id="loginScreen">
+    <div class="login-box">
+      <div class="logo" style="justify-content:center;margin-bottom:20px">
+        <div class="logo-icon">✒️</div>
+        <span>AetherInk</span>
+      </div>
+      <h2>Admin Login</h2>
+      <p>Enter password to manage portfolio items</p>
+      <div class="form-group">
+        <input type="password" id="adminPassword" placeholder="Password" style="text-align:center">
+      </div>
+      <button class="btn btn-primary" style="width:100%" onclick="login()">Login</button>
+        </div>
+  </div>
+
+  <!-- Admin Dashboard -->
+  <div id="adminDashboard" style="display:none">
+    <header class="admin-header">
+      <div class="container">
+        <div class="nav-inner">
+          <a href="index.html" class="logo">
+            <div class="logo-icon">✒️</div>
+            <span>AetherInk Admin</span>
+          </a>
+          <div style="display:flex;gap:12px;align-items:center">
+            <a href="index.html" class="btn btn-secondary" style="padding:8px 16px;font-size:0.9rem">View Site</a>
+            <button class="btn btn-danger" onclick="logout()">Logout</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <div class="admin-layout">
+      <!-- Sidebar -->
+      <aside class="admin-sidebar">
+        <h3>Categories</h3>
+        <ul class="admin-nav" id="adminNav">
+          <li><a class="active" data-cat="all" onclick="showCategory('all')">📦 All Items</a></li>
+          <li><a data-cat="logos" onclick="showCategory('logos')">🎨 Logos</a></li>
+          <li><a data-cat="banners" onclick="showCategory('banners')">🖼️ Banners</a></li>
+          <li><a data-cat="panels" onclick="showCategory('panels')">📐 Panels</a></li>
+          <li><a data-cat="overlays" onclick="showCategory('overlays')">🖥️ Overlays</a></li>
+          <li><a data-cat="subbadges" onclick="showCategory('subbadges')">🏅 Sub Badges</a></li>
+          <li><a data-cat="emotes" onclick="showCategory('emotes')">😊 Emotes</a></li>
+          <li><a data-cat="vtuber" onclick="showCategory('vtuber')">🎭 VTuber Models</a></li>
+          <li><a data-cat="character" onclick="showCategory('character')">👤 Character Art</a></li>
+          <li><a data-cat="furry" onclick="showCategory('furry')">🦊 Furry Art</a></li>
+        </ul>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="admin-content">
+        <!-- Add New Item -->
+        <div class="admin-card">
+          <h2 id="formTitle">Add New Item</h2>
+          <p class="subtitle">Fill the form to add a portfolio piece. Image URL can be any public link (Imgur, Discord CDN, etc.)</p>
+          
+          <form id="addItemForm">
+            <div class="admin-form-grid">
+              <div class="form-group">
+                <label>Title *</label>
+                <input type="text" id="itemTitle" required placeholder="e.g. Cyber Fox Emote Set">
+              </div>
+              <div class="form-group">
+                <label>Category *</label>
+                <select id="itemCategory" required>
+                  <option value="logos">Logos</option>
+                  <option value="banners">Banners</option>
+                  <option value="panels">Panels</option>
+                  <option value="overlays">Overlays</option>
+                  <option value="subbadges">Sub Badges</option>
+                  <option value="emotes">Emotes</option>
+                  <option value="vtuber">VTuber Models</option>
+                  <option value="character">Character Art</option>
+                  <option value="furry">Furry Art</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label>Description</label>
+                <input type="text" id="itemDesc" placeholder="Short description (optional)">
+              </div>
+              <div class="form-group full">
+                <label>Upload Your File (any format)</label>
+                <input type="file" id="itemFile" accept="*/*">
+                <small style="display:block;color:var(--text-muted);margin-top:8px">Images, GIFs, videos, audio, PDFs and other files are supported. Browser storage limits still apply.</small>
+                <label style="margin-top:14px">Or use a public URL (optional)</label>
+                <input type="url" id="itemImage" placeholder="https://example.com/file.gif">
+              </div>
+              <div class="form-group">
+                <label>Emoji / Icon (if no image)</label>
+                <input type="text" id="itemEmoji" placeholder="🎨" maxlength="4">
+              </div>
+            </div>
+            <button type="submit" class="btn btn-primary" style="margin-top:16px">➕ Add Item</button>
+          </form>
+        </div>
+
+        <!-- Items List -->
+        <div class="admin-card">
+          <h2 id="listTitle">All Items</h2>
+          <p class="subtitle" id="listCount">0 items</p>
+          <div class="items-list" id="itemsList">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+  <script>
+    // Admin-specific init
+    document.addEventListener('DOMContentLoaded', () => {
+      if (sessionStorage.getItem('aetherinkAdmin') === 'true') {
+        showDashboard();
+      }
+    });
+  </script>
+</body>
+</html>
