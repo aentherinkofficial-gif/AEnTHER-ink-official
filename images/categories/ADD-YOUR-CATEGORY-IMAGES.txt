@@ -1,0 +1,16 @@
+AETHERINK CATEGORY COVER IMAGES
+
+Put your own category cover images in this folder using these filenames:
+
+- logos.jpg
+- banners.jpg
+- panels.jpg
+- furry-art.jpg
+- emotes.jpg
+- character.jpg
+- overlays.jpg
+- vtuber.jpg
+- sub-badges.jpg
+
+The image paths are referenced in index.html inside the Portfolio Categories section.
+You can use PNG, JPG, JPEG, WEBP or GIF. If you use another extension, update that card's img src in index.html.
